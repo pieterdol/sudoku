@@ -1,0 +1,33 @@
+{% extends "mainTemplate.twig" %}
+
+{% block title %}
+    Sudoku - {{ sudokuTitle }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ sudokuTitle }}</h2>
+    <form method="post" id="sudokuForm">
+        <div id="sudokuContainer">
+            {% for row in sudokuRows %}
+                <div class="sudokuRow">
+                    {% for cell in row %}
+                        <div class="sudokuValue" id="{{ cell.id }}" onclick="console.log('{{ cell.id }}')">
+                            <input class="sudokuValueInput" {{ cell.disabled }} name="sudokuPuzzle[{{ cell.id }}]" value="{{ cell.value }}">
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <input type="hidden" name="action" value="submitSudoku">
+        <input type="hidden" name="sudokuID" value="{{ sudokuID }}">
+        <input id="submitSudoku" type="submit" value="Submit">
+    </form>
+
+    <div id="resultContainer" class=""></div>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="public/js/sudoku.js" type="text/javascript"></script>
+{% endblock %}
+
