@@ -1,11 +1,12 @@
 <?php
 
-use Models\Sudoku;
+use Puzzles\Sudoku;
 
 require 'vendor/autoload.php';
 require_once 'vendor/twig/lib/Twig/Autoloader.php';
 Twig_Autoloader::register();
 
+// @todo filter post waardes
 $post = $_POST;
 
 $sudoku = new Sudoku();
@@ -48,5 +49,7 @@ if(empty($post) || empty($post['action'])) {
                 'message' => $data['message'] ?? 'Something went wrong'
             ];
             exit(json_encode($returnArray));
+        default:
+            exit;
     }
 }

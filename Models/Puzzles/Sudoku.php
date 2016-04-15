@@ -1,8 +1,7 @@
 <?php
+namespace Puzzles;
 
-namespace Models;
-
-use db\dbConnection;
+use Db\DbConnection;
 
 class Sudoku
 {
@@ -10,7 +9,7 @@ class Sudoku
     
     public function __construct()
     {
-        $this->db = new dbConnection();
+        $this->db = new DbConnection();
     }
     
     /**

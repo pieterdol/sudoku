@@ -1,17 +1,10 @@
 <?php
-namespace db;
+namespace Db;
 
+use Db\DatabaseInterface;
 use PDO;
 
-interface Database
-{
-    public function post($table, $values);
-    public function get($select, $from, $where, $values);
-    public function put($table, $where, $values, $id);
-    public function delete($table, $where, $values, $id);
-}
-
-class dbConnection implements Database 
+class DbConnection implements DatabaseInterface
 {
     public $dbConnection;
 
