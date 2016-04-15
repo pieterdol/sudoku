@@ -105,3 +105,13 @@
         clear:both;
         margin-top:10px;
     }
+    #resultContainer.error {
+        color: #fff;
+        background-color: red;
+        border: 1px solid red;
+    }
+    #resultContainer.success {
+        color: #fff;
+        background-color: green;
+        border: 1px solid green;
+    }
