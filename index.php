@@ -1,8 +1,8 @@
 <?php
+require_once 'vendor/autoload.php';
 
 use Puzzles\Sudoku;
 
-require 'vendor/autoload.php';
 require_once 'vendor/twig/lib/Twig/Autoloader.php';
 Twig_Autoloader::register();
 

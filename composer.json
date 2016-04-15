@@ -1,10 +1,12 @@
 {
     "require": {
-        "twig/twig": "~1.0"
+        "twig/twig": "~1.0",
+        "klein/klein": "^2.1"
     },
     "autoload": {
         "classmap": [
-            "models/"
+            "models/",
+            "vendor/"
         ]
     }
 }
