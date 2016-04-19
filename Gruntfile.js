@@ -11,8 +11,10 @@ module.exports = function(grunt) {
             },
         },
         uglify: {
-            files: {
-                'dist/js/scripts.min.js': ['scripts/**/*.js']
+            scripts: {
+                files: {
+                    'dist/js/scripts.min.js': ['scripts/**/*.js']
+                }
             }
         },
         cssmin: {
@@ -25,11 +27,11 @@ module.exports = function(grunt) {
                     'dist/css/styles.min.css': ['styles/**/*.css']
                 }
             }
-        }
+        },
         watch: {
             scripts: {
                 files: ['scripts/**/*.js'],
-                tasks: ['uglify'],
+                tasks: ['uglify:scripts'],
             },
             styles: {
                 files: ['styles/**/*.css'],
