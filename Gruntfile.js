@@ -9,12 +9,6 @@ module.exports = function(grunt) {
                 ],
                 dest: 'dist/js/vendor.js',
             },
-            scripts: {
-                src: [
-                    'scripts/**/*.js', 
-                ],
-                dest: 'dist/js/scripts.js',
-            },
             styles: {
                 src: ['styles/**/*.css'],
                 dest: 'dist/css/styles.css',
@@ -23,17 +17,25 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['scripts/**/*.js'],
-                tasks: ['concat:scripts'],
+                tasks: ['uglify'],
             },
             styles: {
                 files: ['styles/**/*.css'],
                 tasks: ['concat:styles'],
             },
         },
+        uglify: {
+            min: {
+                files: {
+                    'dist/js/scripts.min.js': ['scripts/sudoku.js']
+                }
+            }
+        }
     });
     
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('run', ['concat', 'watch']);
+    grunt.registerTask('run', ['concat', 'uglify', 'watch']);
 };
