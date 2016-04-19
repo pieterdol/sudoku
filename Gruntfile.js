@@ -9,20 +9,6 @@ module.exports = function(grunt) {
                 ],
                 dest: 'dist/js/vendor.js',
             },
-            styles: {
-                src: ['styles/**/*.css'],
-                dest: 'dist/css/styles.css',
-            },
-        },
-        watch: {
-            scripts: {
-                files: ['scripts/**/*.js'],
-                tasks: ['uglify'],
-            },
-            styles: {
-                files: ['styles/**/*.css'],
-                tasks: ['cssmin'],
-            },
         },
         uglify: {
             files: {
@@ -40,6 +26,16 @@ module.exports = function(grunt) {
                 }
             }
         }
+        watch: {
+            scripts: {
+                files: ['scripts/**/*.js'],
+                tasks: ['uglify'],
+            },
+            styles: {
+                files: ['styles/**/*.css'],
+                tasks: ['cssmin'],
+            },
+        },
     });
     
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -47,5 +43,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('run', ['uglify', 'cssmin', 'watch']);
+    grunt.registerTask('run', ['concat', 'uglify', 'cssmin', 'watch']);
 };
