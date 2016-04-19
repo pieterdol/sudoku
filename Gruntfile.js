@@ -21,13 +21,22 @@ module.exports = function(grunt) {
             },
             styles: {
                 files: ['styles/**/*.css'],
-                tasks: ['concat:styles'],
+                tasks: ['cssmin'],
             },
         },
         uglify: {
-            min: {
+            files: {
+                'dist/js/scripts.min.js': ['scripts/**/*.js']
+            }
+        },
+        cssmin: {
+            options: {
+                shorthandCompacting: false,
+                roundingPrecision: -1
+            },
+            target: {
                 files: {
-                    'dist/js/scripts.min.js': ['scripts/sudoku.js']
+                    'dist/css/styles.min.css': ['styles/**/*.css']
                 }
             }
         }
@@ -35,7 +44,8 @@ module.exports = function(grunt) {
     
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('run', ['concat', 'uglify', 'watch']);
+    grunt.registerTask('run', ['uglify', 'cssmin', 'watch']);
 };
