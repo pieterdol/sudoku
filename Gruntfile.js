@@ -2,10 +2,15 @@ module.exports = function(grunt) {
     
     grunt.initConfig({
         concat: {
-            scripts: {
+            vendorScripts: {
                 src: [
                     'node_modules/jquery/dist/jquery.min.js', 
                     'node_modules/bootstrap/dist/js/bootstrap.min.js',
+                ],
+                dest: 'dist/js/vendor.js',
+            },
+            scripts: {
+                src: [
                     'scripts/**/*.js', 
                 ],
                 dest: 'dist/js/scripts.js',
