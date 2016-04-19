@@ -1,0 +1,14 @@
+{
+  "name": "Sudoku",
+  "description": "A simple sudoku application",
+  "version": "0.0.0",
+  "devDependencies": {
+    "bootstrap": "^3.3.6",
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "jquery": "^2.2.3"
+  }
+}
