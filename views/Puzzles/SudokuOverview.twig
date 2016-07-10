@@ -10,7 +10,7 @@
     <ul>
         {% for sudoku in sudokupuzzles %}
             <li>
-                <a href="sudokus/{{ sudoku.puzzle_id }}" rel="{{ sudoku.puzzle_name }}">{{ sudoku.puzzle_name }}</a>
+                <a href="sudokus/{{ sudoku.puzzle_id }}" title="{{ sudoku.puzzle_name }}">{{ sudoku.puzzle_name }}</a>
             </li>
         {% endfor %}
     </ul>
