@@ -4,18 +4,21 @@ namespace Controllers\Http;
 use Controllers\Puzzles\Sudoku;
 use Controllers\Pages;
 
-class Router {
+class Router
+{
     
     private $local;
     private $klein;
     
-    function __construct() {
+    function __construct()
+    {
         // @todo - check if local
         $this->local = true;
         $this->klein = new \Klein\Klein();
     }
     
-    public function handleRequests() {
+    public function handleRequests()
+    {
         $route = $this->local === true ? '/Sudoku' : '';
         $this->klein->respond('GET', $route . '/', function() {
             return Pages\HomePage::getHomePageHtml();

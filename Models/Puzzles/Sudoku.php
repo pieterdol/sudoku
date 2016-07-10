@@ -76,7 +76,7 @@ class Sudoku
             "puzzle_id, puzzle_name, puzzle_value", 
             "sudoku_puzzles", 
             (empty($puzzleID)) ? "" : "puzzle_id = :puzzleID", 
-            (empty($puzzleID)) ? [] : array(':puzzleID' => $puzzleID),
+            (empty($puzzleID)) ? [] : [':puzzleID' => $puzzleID],
             (empty($puzzleID)) ? false : true
         );
     }

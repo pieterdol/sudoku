@@ -1,8 +1,6 @@
 <?php
 namespace Controllers\Pages;
 
-use Twig;
-
 class HomePage
 {
     public static function getHomePageHtml()

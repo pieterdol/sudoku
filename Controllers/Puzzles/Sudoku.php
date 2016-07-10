@@ -3,7 +3,8 @@ namespace Controllers\Puzzles;
 
 use Models\Puzzles\Sudoku;
 
-class Sudoku {
+class Sudoku
+{
     public static function getSudokuOverview()
     {
         $sudoku = new Sudoku();
@@ -36,7 +37,7 @@ class Sudoku {
         foreach ($sudokuPuzzle['puzzle_value'] as $rowKey => $sudokuRowValues){
             if(!empty($sudokuRowValues)){
                 foreach($sudokuRowValues as $columnKey => $value){
-                    $sudokuRows[$rowKey][$columnKey] = array();
+                    $sudokuRows[$rowKey][$columnKey] = [];
                     $sudokuRows[$rowKey][$columnKey]['value'] = $value;
                     $sudokuRows[$rowKey][$columnKey]['id'] = 'sudoku-' . (string)($rowKey) . '-' . (string)($columnKey);
                     $sudokuRows[$rowKey][$columnKey]['disabled'] = ($value !== "0") ? 'disabled' : '';
