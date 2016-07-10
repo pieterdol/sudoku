@@ -1,0 +1,17 @@
+{% extends "Main/MainTemplate.twig" %}
+
+{% block title %}
+    Sudoku - {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+    
+    <ul>
+        {% for sudoku in sudokupuzzles %}
+            <li>
+                <a href="sudokus/{{ sudoku.puzzle_id }}" rel="{{ sudoku.puzzle_name }}">{{ sudoku.puzzle_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

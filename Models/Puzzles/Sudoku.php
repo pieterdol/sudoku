@@ -1,11 +1,11 @@
 <?php
-namespace Puzzles;
+namespace Models\Puzzles;
 
-use Db\DbConnection;
+use Models\Db\DbConnection;
 
 class Sudoku
 {
-    public $db;
+    private $db;
     
     public function __construct()
     {
@@ -65,18 +65,19 @@ class Sudoku
     }
     
     /**
-     * Laad puzzle uit db
+     * Laad puzzle uit db, wordt er geen $puzzleID mee gestuurd, dan worden alle puzzles opgehaald
      * 
      * @param int $puzzleID     Sudoku puzzle ID
      * @return array            Puzzle data
      */
-    public function loadPuzzle($puzzleID)
+    public function loadPuzzle($puzzleID = "")
     {
         return $this->db->get(
-                "puzzle_id, puzzle_name, puzzle_value", 
-                "sudoku_puzzles", 
-                "puzzle_id = :puzzleID", 
-                array(':puzzleID' => $puzzleID)
+            "puzzle_id, puzzle_name, puzzle_value", 
+            "sudoku_puzzles", 
+            (empty($puzzleID)) ? "" : "puzzle_id = :puzzleID", 
+            (empty($puzzleID)) ? [] : array(':puzzleID' => $puzzleID),
+            (empty($puzzleID)) ? false : true
         );
     }
     
@@ -99,12 +100,14 @@ class Sudoku
      * @param array $data       Data waarmee gecontroleerd wordt, dit bevat het sudoku puzzle id en de ingevulde data
      * @return array
      */
-    public function checkSudokuPuzzle($data)
+    public function checkSudokuPuzzle()
     {
-        if (empty($data) || empty($data['sudokuID']) || empty($data['sudokuPuzzle'])) {
-            return false;
-        }
-        return $this->checkSudokuDataBasedOnPuzzleId($data['sudokuID'], $data['sudokuPuzzle']);
+        // @todo - filter post values
+        $post = $_POST;
+        $sudokuID = $post['sudokuID'] ?? false;
+        $sudokuPuzzleData = $post['sudokuPuzzle'] ?? false;
+        
+        return $this->checkSudokuDataBasedOnPuzzleId($sudokuID, $sudokuPuzzleData);
     }
     
     /**
@@ -119,15 +122,18 @@ class Sudoku
             'status' => false,
             'message' => 'Something went wrong!'
         ];
+        if (empty($sudokuID) || empty($data)) {
+            return json_encode($errorArray);
+        }
         $sudokuData = $this->getPuzzle($sudokuID);
         if (empty($sudokuData['puzzle_value'])) {
-            return $errorArray;
+            return json_encode($errorArray);
         }
         // Voeg post en DB waardes samen - ingevulde DB waardes overschrijven de post waardes
         // in het geval de gebruiker disabled input velden heeft aangepast
         $combinedArray = $this->combinePostAndDbSudokuData($data, $sudokuData['puzzle_value'], true);
         if (empty($combinedArray)) {
-            return $errorArray;
+            return json_encode($errorArray);
         }
         return $this->checkSudokuData($combinedArray);
     }
@@ -142,25 +148,25 @@ class Sudoku
         // Check rijen
         $checkRows = $this->checkSudokuRows($data);
         if ($checkRows['status'] === false) {
-            return $checkRows;
+            return json_encode($checkRows);
         }
         
         // Check kolommen
         $checkColumns = $this->checkSudokuColumns($data);
         if ($checkColumns['status'] === false) {
-            return $checkColumns;
+            return json_encode($checkColumns);
         }
         
         // Check blokken (3 x 3)
         $checkBlocks = $this->checkSudokuBlocks($data);
         if ($checkBlocks['status'] === false) {
-            return $checkBlocks;
+            return json_encode($checkBlocks);
         }
         $resultArray = [
             'status' => true,
             'message' => 'Good job!'
         ];
-        return $resultArray;
+        return json_encode($resultArray);
     }
     
     public function combineEmptyAndDbSudokuData($emptySudoku, $dbData, $dbDataOverwrites = true)

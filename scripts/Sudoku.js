@@ -1,9 +1,9 @@
-submitSudoku = function(data) {
+function submitSudoku(data) {
     var resultContainer = $('#resultContainer');
     $.ajax({
         type        : "POST",
         dataType    : "json",
-        url         : "index.php",
+        url         : "sudokus/validate",
         data        : data,
         success: function(data){
             if (typeof resultContainer === 'undefined') {
@@ -33,7 +33,7 @@ submitSudoku = function(data) {
     return true;
 };
 
-addClassToElement = function(element, classToAdd, classToRemove) {
+function addClassToElement(element, classToAdd, classToRemove) {
     if (typeof element === 'undefined') {
         return false;
     }

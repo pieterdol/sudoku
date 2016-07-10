@@ -5,6 +5,7 @@
     },
     "autoload": {
         "classmap": [
+            "controllers/",
             "models/",
             "vendor/"
         ]

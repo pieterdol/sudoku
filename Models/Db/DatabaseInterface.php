@@ -1,5 +1,5 @@
 <?php
-namespace Db;
+namespace Models\Db;
 
 interface DatabaseInterface
 {

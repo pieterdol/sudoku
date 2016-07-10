@@ -1,7 +1,7 @@
 <?php
-namespace Db;
+namespace Models\Db;
 
-use Db\DatabaseInterface;
+use Models\Db\DatabaseInterface;
 use PDO;
 
 class DbConnection implements DatabaseInterface
@@ -21,14 +21,14 @@ class DbConnection implements DatabaseInterface
     {
     }
 
-    public function get($select, $from, $where, $values)
+    public function get($select, $from, $where, $values, $return_single_result = true)
     {
         if(!empty($where)){
             $where = " WHERE " . $where;
         }
         $stmt = $this->dbConnection->prepare("SELECT $select FROM $from $where");
         $stmt->execute($values);
-        return $stmt->fetch();
+        return ($return_single_result === true) ? $stmt->fetch() : $stmt->fetchAll();
     }
 
     public function put($table, $where, $values, $id)
