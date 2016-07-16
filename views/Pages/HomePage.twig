@@ -1,17 +1,13 @@
 {% extends "Main/MainTemplate.twig" %}
 
-{% block title %}
-    {{ title }}
-{% endblock %}
+{% block title title %}
 
 {% block content %}
-    <h2>
-        {{ title }}
-    </h2>
-
-    <ul>
-        <li>
-            <a href="sudokus" rel="Sudokus">Sudokus</a>
-        </li>
-    </ul>
+    <div class='row'>
+        <div class='col-xs-12'>
+            <h2>
+                {{ title }}
+            </h2>
+        </div>
+    </div>
 {% endblock %}

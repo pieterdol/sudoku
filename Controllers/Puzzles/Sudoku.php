@@ -1,6 +1,7 @@
 <?php
 namespace Controllers\Puzzles;
 
+use Controllers\Pages\DefaultData;
 use Models\Puzzles\Sudoku;
 
 class Sudoku
@@ -13,13 +14,11 @@ class Sudoku
         $loader = new \Twig_Loader_Filesystem('views');
         $twig = new \Twig_Environment($loader);
         
-        return $twig->render(
-            'Puzzles/SudokuOverview.twig', 
-            [
-                'title' => 'Sudoku overview',
-                'sudokupuzzles' => $sudokuPuzzles,
-            ]
-        );
+        $template_data = DefaultData::getDefaultData();
+        $template_data['title']          = 'Sudoku overview';
+        $template_data['sudokupuzzles']  = $sudokuPuzzles;
+        
+        return $twig->render('Puzzles/SudokuOverview.twig', $template_data);
     }
     
     public static function getSudokuPuzzle($puzzleID)
@@ -30,12 +29,12 @@ class Sudoku
         $sudoku = new Sudoku();
         $sudokuPuzzle = $sudoku->getPuzzle($puzzleID);
 
-        if(empty($sudokuPuzzle['puzzle_value'])){
+        if (empty($sudokuPuzzle['puzzle_value'])){
             return "There is no data.";
         }
         $sudokuRows = [];
         foreach ($sudokuPuzzle['puzzle_value'] as $rowKey => $sudokuRowValues){
-            if(!empty($sudokuRowValues)){
+            if (!empty($sudokuRowValues)){
                 foreach($sudokuRowValues as $columnKey => $value){
                     $sudokuRows[$rowKey][$columnKey] = [];
                     $sudokuRows[$rowKey][$columnKey]['value'] = $value;
@@ -45,18 +44,15 @@ class Sudoku
             }
         }
 
-        $sudokuValues = [
-            'sudokuTitle'   => $sudokuPuzzle['puzzle_name'], 
-            'sudokuID'      => $sudokuPuzzle['sudoku_id'], 
-            'sudokuRows'    => $sudokuRows,
-        ];
-        $data = $twig->render('Puzzles/Sudoku.twig', $sudokuValues);
-        return $data;
+        $template_data = DefaultData::getDefaultData();
+        $template_data['sudokuTitle']   = $sudokuPuzzle['puzzle_name'];
+        $template_data['sudokuID']      = $sudokuPuzzle['sudoku_id'];
+        $template_data['sudokuRows']    = $sudokuRows;
+        return $twig->render('Puzzles/Sudoku.twig', $template_data);
     }
     
     public static function validateSudokuPuzzle()
     {
-        $sudoku = new Sudoku();
-        return $sudoku->checkSudokuPuzzle();
+        return (new Sudoku())->checkSudokuPuzzle();
     }
 }
